@@ -62,7 +62,7 @@ pipeline {
       steps{
         dir('eureka-server'){
           script{
-            powershell 'docker-compose down || true'
+            powershell 'docker-compose down'
             powershell 'docker-compose up -d'
           }
         }
