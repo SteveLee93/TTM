@@ -20,12 +20,12 @@ pipeline {
     }
     stage('Build'){
       steps{
-        sh 'mvn clean package -DskipTests'
+        powershell 'mvn clean package -DskipTests'
       }
     }
     stage('Unit Test'){
       steps{
-        sh 'mvn test'
+        powershell 'mvn test'
       }
       post{
         always{
@@ -54,8 +54,8 @@ pipeline {
       steps{
         // 실제 배포 스크립트.
         script{
-          sh 'docker-compose down || true'
-          sh 'docker-compose up -d'
+          powershell 'docker-compose down || true'
+          powershell 'docker-compose up -d'
         }
       }
     }
