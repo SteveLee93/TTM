@@ -39,27 +39,32 @@ pipeline {
     }
     stage('Build Docker Image'){
       steps{
-        script{
-          docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+        dir('eureka-server'){
+          script{
+            docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+          }
         }
       }
     }
     stage('Push Docker Image'){
       steps{
-        script{
-          docker.withRegistry('https://registry.hub.docker.com', '${DOCKER_CREDENTIALS}'){
-            docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push()
-            docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push('latest')
+        dir('eureka-server'){
+          script{
+            docker.withRegistry('https://registry.hub.docker.com', '${DOCKER_CREDENTIALS}'){
+              docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push()
+              docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push('latest')
+            }
           }
         }
       }
     }
     stage('Deploy'){
       steps{
-        // 실제 배포 스크립트.
-        script{
-          powershell 'docker-compose down || true'
-          powershell 'docker-compose up -d'
+        dir('eureka-server'){
+          script{
+            powershell 'docker-compose down || true'
+            powershell 'docker-compose up -d'
+          }
         }
       }
     }
