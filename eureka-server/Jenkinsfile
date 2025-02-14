@@ -33,7 +33,7 @@ pipeline {
       }
       post{
         always{
-          junit '**/target/surefire-reports/*.xml'
+          junit 'C:/PARA/1_Project/개인프로젝트/TTM/eureka-server/target/surefire-reports/*.xml'
         }
       }
     }
