@@ -1,0 +1,14 @@
+version: '4.36'
+
+services:
+  eureka-server:
+    build:
+      context: .
+      container_name: eureka-server
+      ports:
+        - "8761:8761"
+      healthcheck:
+        test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+        interval: 30s
+        timeout: 20s
+        retries: 3
