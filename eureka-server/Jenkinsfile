@@ -20,20 +20,20 @@ pipeline {
     }
     stage('Build'){
       steps{
-        dir('C:/PARA/1_Project/개인프로젝트/TTM/eureka-server'){
+        dir('eureka-server'){
           powershell 'mvn clean package -DskipTests'
         }
       }
     }
     stage('Unit Test'){
       steps{
-        dir('C:/PARA/1_Project/개인프로젝트/TTM/eureka-server'){
+        dir('eureka-server'){
           powershell 'mvn test'
         }
       }
       post{
         always{
-          junit 'C:/PARA/1_Project/개인프로젝트/TTM/eureka-server/target/surefire-reports/*.xml'
+          junit 'eureka-server/target/surefire-reports/*.xml'
         }
       }
     }
