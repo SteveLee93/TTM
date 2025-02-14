@@ -51,8 +51,8 @@ pipeline {
         dir('eureka-server'){
           script{
             docker.withRegistry('', "${DOCKER_CREDENTIALS}"){
-              docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push()
-              docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push('latest')
+              docker.image("${DOCKER_CREDENTIALS}/${DOCKER_IMAGE}:${DOCKER_TAG}").push()
+              docker.image("${DOCKER_CREDENTIALS}/${DOCKER_IMAGE}:${DOCKER_TAG}").push('latest')
             }
           }
         }
